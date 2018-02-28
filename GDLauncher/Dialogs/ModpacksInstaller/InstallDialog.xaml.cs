@@ -60,25 +60,29 @@ namespace GDLauncher.Dialogs
         {
             ctoken = new CancellationTokenSource();
             await downloader.MCDownload(instanceName, MCVersion, forgeVersion, ctoken.Token, modpackName, modpackVersion, additionalMods);
-            DialogHost.CloseDialogCommand.Execute(this, this);
+            if(!ctoken.IsCancellationRequested)
+                DialogHost.CloseDialogCommand.Execute(this, this);
+            else
+            {
+                await Task.Run(() => Application.Current.Dispatcher.Invoke(new Action(async () =>
+                {
+                    try
+                    {
+                        await Task.Delay(400);
+                        Directory.Delete(config.M_F_P + "Packs\\" + instanceName, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.InnerException);
+                    }
+                })));
+            }
 
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await Task.Run(() => ctoken.Cancel());
-
-            await Task.Run(() => Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                try
-                {
-                    Directory.Delete(config.M_F_P + "Packs\\" + instanceName, true);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.InnerException);
-                }
-            })));
             TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
             DialogHost.CloseDialogCommand.Execute("Cancelled", this);
         }

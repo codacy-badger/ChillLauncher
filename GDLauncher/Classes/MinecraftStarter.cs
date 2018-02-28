@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using GDLauncher.Properties;
 
 namespace GDLauncher.Classes
 {
@@ -44,62 +45,37 @@ namespace GDLauncher.Classes
                 launch += config.M_F_P + "Packs\\" + new DirectoryInfo(dir).Name + "\\" + lib.path + ";";
             }
             
-            if (forge != "false")
-                launch += dir + @"\\versions\\" + decoded.mc_version + "\\\\" + decoded.mc_version + ".jar";
+            launch += dir + @"\\versions\\" + decoded.mc_version + "\\\\" + decoded.mc_version + ".jar";
 
+            string args = decoded.arguments;
+            string arguments = args.Replace(
+                    "${auth_player_name}", SessionData.username
+                    ).Replace(
+                    "${version_name}", 
+                    forge == null ? 
+                        (string)decoded.mc_version : 
+                        (string)decoded.mc_version + "-forge" + (string)decoded.mc_version + "-" + forge + "-" + (string)decoded.mc_version + " "
+                    ).Replace(
+                    "${game_directory}", dir
+                    ).Replace(
+                    "${assets_root}", dir + "\\assets\\"
+                    ).Replace(
+                    "${assets_index_name}", (string)decoded.mc_version
+                    ).Replace(
+                    "${auth_uuid}", SessionData.uuidPremium
+                    ).Replace(
+                    "${auth_access_token}", SessionData.accessToken
+                    ).Replace(
+                    "${user_properties}", "{}"
+                    ).Replace(
+                    "${user_type}", Settings.Default.isLegacy ? "legacy" : "mojang"
+                    ).Replace(
+                    "${version_type}", (string)decoded.version_type
+                    );
 
-            if (forge == "false")
-            {
-                string args = decoded.arguments;
-                string arguments = args.Replace("${auth_player_name}", SessionData.username).Replace(
-                        "${version_name}", (string)decoded.mc_version + " "
-                        ).Replace(
-                        "${game_directory}", dir
-                        ).Replace(
-                        "${assets_root}", dir + "\\assets\\"
-                        ).Replace(
-                        "${assets_index_name}", (string)decoded.mc_version
-                        ).Replace(
-                        "${auth_uuid}", SessionData.uuidPremium
-                        ).Replace(
-                        "${auth_access_token}", SessionData.accessToken
-                        ).Replace(
-                        "${user_properties}", "{}"
-                        ).Replace(
-                        "${user_type}", "legacy"
-                        ).Replace(
-                        "${version_type}", (string)decoded.version_type
-                        );
-
-                launch = launch + "\" " + (string)decoded.mainClass + " " + arguments;
-            }
-            else
-            {
-                string args = decoded.arguments;
-                string arguments = args.Replace(
-                        "${auth_player_name}", SessionData.username
-                        ).Replace(
-                        "${version_name}", (string)decoded.mc_version + "-forge" + (string)decoded.mc_version + "-" + forge + "-" + (string)decoded.mc_version + " "
-                        ).Replace(
-                        "${game_directory}", dir
-                        ).Replace(
-                        "${assets_root}", dir + "\\assets\\"
-                        ).Replace(
-                        "${assets_index_name}", (string)decoded.mc_version
-                        ).Replace(
-                        "${auth_uuid}", SessionData.uuidPremium
-                        ).Replace(
-                        "${auth_access_token}", SessionData.accessToken
-                        ).Replace(
-                        "${user_properties}", "{}"
-                        ).Replace(
-                        "${user_type}", "legacy"
-                        ).Replace(
-                        "${version_type}", (string)decoded.version_type
-                        );
-
-                launch = launch + "\" " + (string)decoded.mainClass + " " + arguments;
-            }
+            launch = launch + "\" " + (string)decoded.mainClass + " " + arguments;
+            
+            launch += " --server localhost --port 25565";
 
             Process process = new Process();
             

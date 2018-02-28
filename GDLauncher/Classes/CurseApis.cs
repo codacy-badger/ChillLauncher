@@ -42,9 +42,8 @@ namespace GDLauncher.Classes
             return list;
         }
 
-        public static async Task<List<string>> getDownloadURL(int projectId, int fileId)
+        public static async Task<string> getDownloadURL(int projectId, int fileId)
         {
-            var list = new List<string>();
             var client = new WebClient();
             try
             {
@@ -53,7 +52,7 @@ namespace GDLauncher.Classes
                     await client.DownloadStringTaskAsync(defaultURL + "/api/addon/" + projectId +
                                                          "/files/" + fileId);
                 dynamic x = JsonConvert.DeserializeObject(response);
-                list.Add(x.downloadURL.ToString());
+                return x.downloadURL.ToString();
                 /*if (x.dependencies != null || x.dependencies.Length != 0)
                 {
                     foreach (var loc in x.dependencies)
@@ -61,13 +60,33 @@ namespace GDLauncher.Classes
                         list.AddRange(ResolveDependancies(loc.addOnId, x.gameVersion));
                     }
                 }*/
-                return list;
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Could not download " + defaultURL + "/api/addon/" + projectId +
                                   "/files/" + fileId + e.Message);
+            }
+
+            return null;
+        }
+
+        public static async Task<data> FetchModpackInfo(int id)
+        {
+            var list = new List<string>();
+            var client = new WebClient();
+            try
+            {
+
+                var response =
+                    await client.DownloadStringTaskAsync(defaultURL + "/api/addon/" + id);
+                data x = JsonConvert.DeserializeObject<data>(response);
+                return x;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error downloading modpack info");
             }
 
             return null;

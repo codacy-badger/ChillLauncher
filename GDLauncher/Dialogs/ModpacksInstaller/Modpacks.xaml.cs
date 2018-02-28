@@ -17,88 +17,14 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using GDLauncher.Classes;
+using GDLauncher.Dialogs.ModpacksInstaller;
+using GDLauncher.Models;
 using GDLauncher.Properties;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 
 namespace GDLauncher.Dialogs
 {
-    /// <summary>
-    ///     Interaction logic for Modpacks.xaml
-    /// </summary>
-    public class CurseRoot
-    {
-        public List<data> Data { get; set; }
-    }
-
-    public class data
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public CategorySection CategorySection { get; set; }
-        public Attachments[] Attachments { get; set; }
-        public Authors[] Authors { get; set; }
-        public string PrimaryCategoryAvatarUrl { get; set; }
-        public string PrimaryCategoryName { get; set; }
-
-        public string DownloadCount { get; set; }
-        public int IsFeatured { get; set; }
-        public double PopularityScore { get; set; }
-        public string Summary { get; set; }
-    }
-
-    public class Attachments
-    {
-        public string ThumbnailUrl { get; set; }
-        public string Description { get; set; }
-        public string Url { get; set; }
-        public string Title { get; set; }
-        public bool IsDefault { get; set; }
-    }
-
-    public class Authors
-    {
-        public string Name { get; set; }
-        public string Url { get; set; }
-    }
-
-    public class CategorySection
-    {
-        public string Name { get; set; }
-    }
-
-    public class Fileino
-    {
-        public int fileID { get; set; }
-        public int projectID { get; set; }
-        public bool required { get; set; }
-    }
-
-    public class ModLoader
-    {
-        public string id { get; set; }
-        public bool primary { get; set; }
-    }
-
-    public class Minecraft
-    {
-        public List<ModLoader> modLoaders { get; set; }
-        public string version { get; set; }
-    }
-
-    public class ModpackManifest
-    {
-        public string author { get; set; }
-        public List<Fileino> files { get; set; }
-        public string manifestType { get; set; }
-        public int manifestVersion { get; set; }
-        public Minecraft minecraft { get; set; }
-        public string name { get; set; }
-        public string overrides { get; set; }
-        public int projectID { get; set; }
-        public string version { get; set; }
-    }
-
     public partial class Modpacks : INotifyPropertyChanged
     {
         public static int numberOfObjectsPerPage = 9;
@@ -380,9 +306,33 @@ namespace GDLauncher.Dialogs
                 {
                     Style = Application.Current.FindResource("MaterialDesignRaisedButton") as Style,
                     Content = "Install",
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    VerticalAlignment = VerticalAlignment.Bottom,
                     Margin = new Thickness(0, 20, 0, 10)
+                };
+
+                var infoBtn = new Button
+                {
+                    Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style,
+                    Content = new PackIcon
+                    {
+                        Kind = PackIconKind.Information
+                    },
+                    Margin = new Thickness(0, 20, 10, 10)
+                };
+
+                infoBtn.Click += async (sss, eee) =>
+                {
+                    if (isInstalling)
+                    {
+                        //use the message queue to send a message.
+                        var messageQueue = SnackbarThree.MessageQueue;
+                        var message = "Action not allowed while downloading";
+
+                        //the message queue can be called from any thread
+                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                        return;
+                    }
+
+                    await DialogHost.Show(new ModpackInfo(loc.Id), "ModpacksDialog");
                 };
                 installBtn.Click += async (ss, ee) =>
                 {
@@ -474,7 +424,7 @@ namespace GDLauncher.Dialogs
                                 var block = new ActionBlock<Fileino>(async file =>
                                 {
                                     var modurl = await CurseApis.getDownloadURL(file.projectID, file.fileID);
-                                    foreach (var mod in modurl) additionalMods.Add(mod);
+                                    additionalMods.Add(modurl);
                                 }, new ExecutionDataflowBlockOptions {MaxDegreeOfParallelism = 30});
 
                                 foreach (var file in parsedManifest.files) block.Post(file);
@@ -496,7 +446,7 @@ namespace GDLauncher.Dialogs
                                     new InstallDialog(y.instanceName, parsedManifest.minecraft.version,
                                         parsedManifest.minecraft.modLoaders[0].id.Replace("forge-", ""), loc.Name,
                                         y.version, additionalMods), "ModpacksDialog");
-                                if (install == "Cancelled")
+                                if (install.ToString() == "Cancelled")
                                 {
                                     isInstalling = false;
                                     return;
@@ -556,7 +506,17 @@ namespace GDLauncher.Dialogs
                             Margin = new Thickness(10, 0, 10, 0),
                             MinHeight = 70
                         },
-                        installBtn
+                        new StackPanel
+                        {
+                            Orientation = Orientation.Horizontal,
+                            HorizontalAlignment = HorizontalAlignment.Right,
+                            VerticalAlignment = VerticalAlignment.Bottom,
+                            Children =
+                            {
+                                infoBtn,
+                                installBtn
+                            }
+                        }
                     }
                 };
 

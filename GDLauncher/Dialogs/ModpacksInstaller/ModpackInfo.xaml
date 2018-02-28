@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="GDLauncher.Dialogs.ModpacksInstaller.ModpackInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="#eeeeee" Loaded="UserControl_Loaded" Height="500" Width="500">
+    <Grid>
+        <ScrollViewer Name="sv" ScrollChanged="ScrollViewer_OnScrollChanged">
+            <StackPanel VerticalAlignment="Top">
+                <ProgressBar Name="ImageLoading" IsIndeterminate="True" Style="{StaticResource MaterialDesignCircularProgressBar}" Height="150" Margin="0 150 0 0"></ProgressBar>
+                <Image Name="ModpackIMG" Width="460" Height="300" Visibility="Collapsed" Margin="20" VerticalAlignment="Top" Stretch="UniformToFill"></Image>
+                <materialDesign:Card HorizontalAlignment="Stretch" Margin="10" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <StackPanel Margin="10">
+                        <Label Name="ModpackName" FontSize="24" FontWeight="Light" HorizontalAlignment="Center">Name</Label>
+                        <Label Name="Authors" Margin="20 10 20 0"></Label>
+                        <TextBlock TextWrapping="Wrap" Name="Summary" Margin="20">Summary</TextBlock>
+                        <Label FontSize="17" FontWeight="Light">Categories</Label>
+                        <WrapPanel Orientation="Horizontal" Name="Categories" Width="440" HorizontalAlignment="Center">
+                        </WrapPanel>
+                        <Label Name="Downloads"></Label>
+                        <Label Name="URL" Cursor="Hand" Width="56" HorizontalAlignment="Left">Website</Label>
+                    </StackPanel>
+                </materialDesign:Card>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Command="materialDesign:DialogHost.CloseDialogCommand" Style="{StaticResource MaterialDesignFlatButton}">Back</Button>
+            </StackPanel>
+        </ScrollViewer>
+        <ProgressBar Name="Loading" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center" IsIndeterminate="True" Style="{StaticResource MaterialDesignCircularProgressBar}"></ProgressBar>
+    </Grid>
+</UserControl>

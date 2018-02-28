@@ -53,7 +53,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Margin="10">
-                                        <CheckBox Name="gorilladevs" IsChecked="True" HorizontalAlignment="Center" Margin="0 5 0 5"  Click="chk_Click">GorillaDevs's Style</CheckBox>
+                                        <CheckBox Name="gorilladevs" HorizontalAlignment="Center" Margin="0 5 0 5"  Click="chk_Click">GorillaDevs's Style</CheckBox>
                                         <StackPanel Orientation="Horizontal" MouseLeftButtonDown="gorilladevs_OnMouseLeftButtonDown">
                                             <StackPanel>
                                                 <Image Width="110" Source="../Images/howTo/flat.png"></Image>
@@ -101,8 +101,8 @@
                     <StackPanel>
                         <DockPanel>
                             <Label VerticalAlignment="Center">Java Path</Label>
-                            <TextBlock Name="JavaPath" Margin="10 0 5 0" VerticalAlignment="Center" Height="30" Width="340"/>
-                            <ToggleButton Name="JavaPathFolderBrowser" Style="{StaticResource MaterialDesignFlatToggleButton}" ToolTip="Browse" Click="JavaPathFolderBrowser_Click">
+                            <TextBlock Name="JavaPath" Margin="10 0 5 0" VerticalAlignment="Center" Height="30" Width="500"/>
+                            <ToggleButton Name="JavaPathFolderBrowser" Margin="50 0 0 0" Style="{StaticResource MaterialDesignFlatToggleButton}" ToolTip="Browse" Click="JavaPathFolderBrowser_Click">
                                 <materialDesign:PackIcon Kind="Folder" Height="21" Width="21" />
                             </ToggleButton>
                         </DockPanel>

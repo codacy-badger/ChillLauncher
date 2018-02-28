@@ -177,6 +177,19 @@
     <Compile Include="Classes\MinecraftStarter.cs" />
     <Compile Include="Classes\MojangAPIs.cs" />
     <Compile Include="Classes\StartSTATasks.cs" />
+    <Compile Include="Dialogs\ModpacksInstaller\ModpackInfo.xaml.cs">
+      <DependentUpon>ModpackInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Attachments.cs" />
+    <Compile Include="Models\Authors.cs" />
+    <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\CategorySection.cs" />
+    <Compile Include="Models\CurseRoot.cs" />
+    <Compile Include="Models\data.cs" />
+    <Compile Include="Models\Fileino.cs" />
+    <Compile Include="Models\Minecraft.cs" />
+    <Compile Include="Models\ModLoader.cs" />
+    <Compile Include="Models\ModpackManifest.cs" />
     <Compile Include="Models\CombItem.cs" />
     <Compile Include="Models\ModpackVersions.cs" />
     <Compile Include="Models\NotEmptyValidationRule.cs" />
@@ -335,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\Instances\ManagePack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ModpacksInstaller\ModpackInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -109,7 +109,7 @@ namespace GDLauncher.Dialogs
 
             downloadThreads.SelectedValue = Settings.Default["download_threads"];
             ram.SelectedValue = Settings.Default["RAM"];
-            JavaPath.Text = ShortenPath(Classes.ComputerInfoDetect.GetJavaInstallationPath(), 60);
+            JavaPath.Text = ShortenPath(Classes.ComputerInfoDetect.GetJavaInstallationPath(), 100);
             switch (Settings.Default.graphicsPerformance)
             {
                 case "GorillaDevs's Style":
