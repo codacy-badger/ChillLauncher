@@ -173,6 +173,11 @@ namespace GDLauncher.Pages
                         MessageBox.Show("Error while parsing " + "card" + new DirectoryInfo(dir.Replace(" ", "")).Name);
                         continue;
                     }
+                    catch
+                    {
+                        MessageBox.Show("Error reading file");
+                        continue;
+                    }
 
                     var card = new Card
                     {
@@ -574,11 +579,12 @@ namespace GDLauncher.Pages
             addNewBtn.Click += async (sender, e) =>
             {
                 var installModpack = new Modpacks();
-                await DialogHost.Show(installModpack, "RootDialog");
+                var result = await DialogHost.Show(installModpack, "RootDialog");
                 GC.Collect();
 
                 if (!Directory.Exists(config.M_F_P + "Packs\\")) Directory.CreateDirectory(config.M_F_P + "Packs\\");
-                ModpacksUpdate();
+                await Task.Delay(200);
+                    ModpacksUpdate();
             };
 
 

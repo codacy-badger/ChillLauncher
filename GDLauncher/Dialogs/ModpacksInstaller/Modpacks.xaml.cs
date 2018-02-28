@@ -367,11 +367,13 @@ namespace GDLauncher.Dialogs
                                 string instanceDir = config.M_F_P + "Packs\\" + y.instanceName;
                                 var url = "";
                                 foreach (var locx in await CurseApis.getVersions(loc.Id))
+                                {
                                     if (locx.Name == y.version)
                                     {
                                         url = locx.URL;
                                         break;
                                     }
+                                }
 
                                 cToken.Register(async () =>
                                 {
@@ -427,16 +429,19 @@ namespace GDLauncher.Dialogs
                                     additionalMods.Add(modurl);
                                 }, new ExecutionDataflowBlockOptions {MaxDegreeOfParallelism = 30});
 
-                                foreach (var file in parsedManifest.files) block.Post(file);
-                                block.Complete();
-                                try
+                                if (parsedManifest.files != null)
                                 {
-                                    await block.Completion;
-                                }
-                                catch (TaskCanceledException)
-                                {
-                                    isInstalling = false;
-                                    return;
+                                    foreach (var file in parsedManifest.files) block.Post(file);
+                                    block.Complete();
+                                    try
+                                    {
+                                        await block.Completion;
+                                    }
+                                    catch (TaskCanceledException)
+                                    {
+                                        isInstalling = false;
+                                        return;
+                                    }
                                 }
 
                                 installBtn.Content = "Install";
@@ -623,6 +628,7 @@ namespace GDLauncher.Dialogs
                 cancelToken.Cancel(true);
                 cancelToken.Dispose();
             }
+
 
             DialogHost.CloseDialogCommand.Execute(this, this);
         }

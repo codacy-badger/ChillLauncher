@@ -38,7 +38,7 @@ namespace GDLauncher.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3.4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3.4.1")]
         public string version {
             get {
                 return ((string)(this["version"]));

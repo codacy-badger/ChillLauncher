@@ -33,7 +33,7 @@ namespace GDLauncher.Classes
             {
                 list.Add(new ModpackVersions
                 {
-                    Name = y.fileName,
+                    Name = y.fileNameOnDisk,
                     URL = y.downloadURL,
                     GameVersion = y.gameVersion[0]
                 });

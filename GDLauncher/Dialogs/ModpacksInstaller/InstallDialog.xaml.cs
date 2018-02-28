@@ -68,7 +68,7 @@ namespace GDLauncher.Dialogs
                 {
                     try
                     {
-                        await Task.Delay(400);
+                        await Task.Delay(300);
                         Directory.Delete(config.M_F_P + "Packs\\" + instanceName, true);
                     }
                     catch (Exception ex)
@@ -84,6 +84,8 @@ namespace GDLauncher.Dialogs
         {
             await Task.Run(() => ctoken.Cancel());
             TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+            await Task.Delay(100);
+            File.Delete(config.M_F_P + "Packs\\" + instanceName + "\\" + instanceName + ".json");
             DialogHost.CloseDialogCommand.Execute("Cancelled", this);
         }
     }
