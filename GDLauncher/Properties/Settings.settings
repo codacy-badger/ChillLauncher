@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Empty</Value>
     </Setting>
     <Setting Name="version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">3.3.2</Value>
+      <Value Profile="(Default)">3.4</Value>
     </Setting>
     <Setting Name="RAM" Provider="crdx.Settings.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -61,6 +61,9 @@
     </Setting>
     <Setting Name="graphicsPerformance" Provider="crdx.Settings.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">GorillaDevs's Style</Value>
+    </Setting>
+    <Setting Name="VersionCP" Provider="crdx.Settings.PortableSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">null</Value>
     </Setting>
   </Settings>
 </SettingsFile>

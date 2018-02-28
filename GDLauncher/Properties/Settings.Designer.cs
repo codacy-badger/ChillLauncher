@@ -38,7 +38,7 @@ namespace GDLauncher.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3.3.2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3.4")]
         public string version {
             get {
                 return ((string)(this["version"]));
@@ -272,6 +272,19 @@ namespace GDLauncher.Properties {
             }
             set {
                 this["graphicsPerformance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(crdx.Settings.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("null")]
+        public string VersionCP {
+            get {
+                return ((string)(this["VersionCP"]));
+            }
+            set {
+                this["VersionCP"] = value;
             }
         }
     }

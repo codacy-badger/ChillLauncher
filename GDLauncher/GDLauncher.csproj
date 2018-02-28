@@ -177,6 +177,9 @@
     <Compile Include="Classes\MinecraftStarter.cs" />
     <Compile Include="Classes\MojangAPIs.cs" />
     <Compile Include="Classes\StartSTATasks.cs" />
+    <Compile Include="Dialogs\LegacyFolderDelete.xaml.cs">
+      <DependentUpon>LegacyFolderDelete.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ModpacksInstaller\ModpackInfo.xaml.cs">
       <DependentUpon>ModpackInfo.xaml</DependentUpon>
     </Compile>
@@ -328,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\Eula.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\LegacyFolderDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

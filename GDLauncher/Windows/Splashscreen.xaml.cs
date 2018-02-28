@@ -11,6 +11,7 @@ using System.Windows;
 using GDLauncher.Classes;
 using GDLauncher.Pages;
 using GDLauncher.Properties;
+using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 
 namespace GDLauncher.Windows
@@ -53,7 +54,25 @@ namespace GDLauncher.Windows
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Windows.DebugOutputConsole console = new Windows.DebugOutputConsole();
+            await Task.Delay(300);
+            if (Settings.Default.VersionCP == "null" || new Version(Settings.Default.VersionCP) < new Version("3.4") 
+                                                     || Settings.Default.VersionCP == null)
+            {
+                var result = await DialogHost.Show(new Dialogs.LegacyFolderDelete());
+                await Task.Delay(300);
+                if (result.ToString() == "yes")
+                {
+                    actualActivity.Text = "Deleting... This may take a few minutes";
+                    try
+                    {
+                        await Task.Run(() => Directory.Delete(config.M_F_P, true));
+                    }
+                    catch { }
+                }
+            }
+
+            Settings.Default.VersionCP = Settings.Default.version;
+
             try
             {
                 HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://google.com");
@@ -152,7 +171,7 @@ namespace GDLauncher.Windows
                 {
                     actualActivity.Text = "Checking for Premium Token Validity";
 
-                    isTokenValid = await Classes.MojangAPIs.IsTokenValid(Settings.Default.premiumAccessToken);
+                    isTokenValid = await MojangAPIs.IsTokenValid(Settings.Default.premiumAccessToken);
                 }
 
                 await Task.Delay(300);
