@@ -55,8 +55,7 @@ namespace GDLauncher.Windows
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             await Task.Delay(300);
-            if (Settings.Default.VersionCP == "null" || new Version(Settings.Default.VersionCP) < new Version("3.4") 
-                                                     || Settings.Default.VersionCP == null)
+            if (Settings.Default.VersionCP != "null" && new Version(Settings.Default.VersionCP) < new Version("3.4"))
             {
                 var result = await DialogHost.Show(new Dialogs.LegacyFolderDelete());
                 await Task.Delay(300);
@@ -317,7 +316,7 @@ namespace GDLauncher.Windows
             async Task CheckCurseJson(string totalChecks)
             {
                 string curseURL =
-                    "https://cursemeta.nikky.moe/api/addon?modpacks=1&property=name&property=id&property=summary&property=authors&property=attachments&property=categorysection&property=PopularityScore&property=downloadcount&property=PrimaryCategoryAvatarUrl&property=IsFeatured&property=PrimaryCategoryName";
+                    "https://dl.gorilladevs.com/complete.zip";
                 actualActivity.Text = "Checking required data (3/" + totalChecks + ")";
                 try
                 {
@@ -337,14 +336,18 @@ namespace GDLauncher.Windows
                             (ee.TotalBytesToReceive / 1024d / 1024d).ToString("0"));*/
                     };
                     //VERIFICA SE IL JSON DELLE VERSIONI DI FORGE ESISTE ED E' AGGIORNATO
-                    if (!File.Exists(config.M_F_P + "complete.json") ||
-                        hDiff.TotalHours > 24 ||
-                        Settings.Default.curseJSONLastUpdated == Convert.ToDateTime("1/1/1970"))
+                    if (!File.Exists(config.M_F_P + "complete.json"))
                     {
                         actualActivity.Text = "Downloading Additional Data (3/" + totalChecks + ")";
-                        await client.DownloadFileTaskAsync(curseURL, config.M_F_P + "complete.json.tdownload");
+                        await client.DownloadFileTaskAsync(curseURL, config.M_F_P + "complete.zip.tdownload");
                         percentage.Text = "";
-                        File.Move(config.M_F_P + "complete.json.tdownload", config.M_F_P + "complete.json");
+                        File.Move(config.M_F_P + "complete.zip.tdownload", config.M_F_P + "complete.zip");
+                        await Task.Delay(300);
+                        await Task.Factory
+                            .StartNew(() =>
+                                Classes.ZipSharp.ExtractZipFile(config.M_F_P + "complete.zip", null, config.M_F_P))
+                            .ContinueWith((ante) => Thread.Sleep(300));
+                        File.Delete(config.M_F_P + "complete.zip");
                         Settings.Default.curseJSONLastUpdated = DateTime.Now;
                         Settings.Default.Save();
 

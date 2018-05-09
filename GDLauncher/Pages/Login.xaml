@@ -80,6 +80,11 @@ Sample license text.
                             </materialDesign:TransitionerSlide>
                         </materialDesign:Transitioner>
                     </materialDesign:Card>
+                    <Label Height="100" Margin="5,404,15,-129" HorizontalAlignment="Center">
+                        <Bold>
+                            GDLauncher Reloaded is coming soon! Stay tuned
+                        </Bold>
+                    </Label>
                 </Grid>
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide Background="#1A5363">

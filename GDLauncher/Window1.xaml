@@ -14,6 +14,7 @@ Sample license text.
         Height="700" WindowStyle="None"
         ResizeMode="CanMinimize" Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
+        materialDesign:TransitionAssist.DisableTransitions="True"
         Closed="Window_Closed">
     <materialDesign:DialogHost Identifier="RootDialog" CloseOnClickAway="{Binding Path=DialogContent.(local:DialogHostExtensions.CloseOnClickAway), RelativeSource={RelativeSource Self}, FallbackValue=True}">
             <DockPanel Name="maincontent">
