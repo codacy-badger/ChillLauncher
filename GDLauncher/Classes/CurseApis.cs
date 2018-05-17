@@ -15,7 +15,7 @@ namespace GDLauncher.Classes
 {
     class CurseApis
     {
-        public static string defaultURL = "https://cursemeta.nikky.moe";
+        public static string defaultURL = "https://cursemeta.dries007.net";
 
         public static async Task<List<ModpackVersions>> getVersions(int id)
         {
@@ -23,7 +23,7 @@ namespace GDLauncher.Classes
 
             HttpClient client = new HttpClient();
 
-            var response = await client.GetAsync(defaultURL + "/api/addon/" + id + "/files");
+            var response = await client.GetAsync(defaultURL + "/api/v2/direct/GetAllFilesForAddOn/" + id);
 
             var responseString = await response.Content.ReadAsStringAsync();
 
@@ -33,9 +33,9 @@ namespace GDLauncher.Classes
             {
                 list.Add(new ModpackVersions
                 {
-                    Name = y.fileNameOnDisk,
-                    URL = y.downloadURL,
-                    GameVersion = y.gameVersion[0]
+                    Name = y.FileNameOnDisk,
+                    URL = y.DownloadURL,
+                    GameVersion = y.GameVersion[0]
                 });
             }
 
@@ -49,8 +49,7 @@ namespace GDLauncher.Classes
             {
                 
                 var response =
-                    await client.DownloadStringTaskAsync(defaultURL + "/api/addon/" + projectId +
-                                                         "/files/" + fileId);
+                    await client.DownloadStringTaskAsync(defaultURL + "/api/v2/direct/GetAddOnFile/" + projectId + "/" + fileId);
                 dynamic x = JsonConvert.DeserializeObject(response);
                 return x.downloadURL.ToString();
                 /*if (x.dependencies != null || x.dependencies.Length != 0)
@@ -79,7 +78,7 @@ namespace GDLauncher.Classes
             {
 
                 var response =
-                    await client.DownloadStringTaskAsync(defaultURL + "/api/addon/" + id);
+                    await client.DownloadStringTaskAsync(defaultURL + "/api/v2/direct/GetAddOn/" + id);
                 data x = JsonConvert.DeserializeObject<data>(response);
                 return x;
 

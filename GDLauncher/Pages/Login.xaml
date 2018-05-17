@@ -82,7 +82,7 @@ Sample license text.
                     </materialDesign:Card>
                     <Label Height="100" Margin="5,404,15,-129" HorizontalAlignment="Center">
                         <Bold>
-                            GDLauncher Reloaded is coming soon! Stay tuned
+                            This is a legacy launcher and is no longer mantained. GDLauncher Reloaded is coming soon! Stay tuned
                         </Bold>
                     </Label>
                 </Grid>

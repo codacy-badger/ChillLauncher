@@ -46,7 +46,7 @@ Sample license text.
                     </Button>
                     <Label HorizontalAlignment="Center">
                         <Bold>
-                            GDLauncher Reloaded is coming soon. Stay tuned!
+                            This is a legacy launcher and is no longer mantained. GDLauncher Reloaded is coming soon! Stay tuned
                         </Bold>
                     </Label>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 15" >
