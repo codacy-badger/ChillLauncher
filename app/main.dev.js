@@ -30,8 +30,8 @@ const settings = store.get('settings') ? store.get('settings').theme : THEMES;
 const primaryColor =
   settings && settings.primary ? settings.primary : '#2c3e50';
 const secondaryColor =
-  settings && settings['secondary-color-1']
-    ? settings['secondary-color-1']
+  settings && settings['shade9']
+    ? settings['shade9']
     : '#34495e';
 
 if (minimist(process.argv.slice(1)).i) {

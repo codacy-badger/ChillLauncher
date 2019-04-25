@@ -15,8 +15,8 @@ $grey: #7f8c8d;
 
 $primary-color: $blue;
 
-$secondary-color-1: $wetasphalt;
-$secondary-color-2: #2c3e50;
+$shade9: $wetasphalt;
+$shade8: #2c3e50;
 $secondary-color-3: #212b36;
 $secondary-color-light: #4a6075;
 
@@ -38,8 +38,8 @@ $btn-bg-color: $primary-color;
 @include css-vars(
   (
     --primary: $primary-color,
-    --secondary-color-1: $secondary-color-1,
-    --secondary-color-2: $secondary-color-2,
+    --shade9: $shade9,
+    --shade8: $shade8,
     --secondary-color-3: $secondary-color-3
   )
 );

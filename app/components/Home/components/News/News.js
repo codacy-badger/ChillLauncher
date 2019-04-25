@@ -60,14 +60,14 @@ const News = props => (
       <div
         style={{
           width: '100%',
-          background: 'var(--secondary-color-1)'
+          background: 'var(--shade9)'
         }}
       >
         <ContentLoader
           height={180}
           speed={0.6}
           ariaLabel={false}
-          primaryColor="var(--secondary-color-2)"
+          primaryColor="var(--shade8)"
           secondaryColor="var(--secondary-color-3)"
           style={{
             height: '180px',

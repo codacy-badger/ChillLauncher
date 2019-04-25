@@ -18,7 +18,7 @@ const Loader = () => (
     width="100%"
     speed={0.6}
     ariaLabel={false}
-    primaryColor="var(--secondary-color-2)"
+    primaryColor="var(--shade8)"
     secondaryColor="var(--secondary-color-3)"
     style={{
       height: '100%',

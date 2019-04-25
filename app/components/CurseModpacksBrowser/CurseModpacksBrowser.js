@@ -92,7 +92,7 @@ function CurseModpacksBrowser(props) {
           textAlign: 'center',
           paddingTop: '20%',
           height: 'calc(100vh - 60px)',
-          background: 'var(--secondary-color-2)'
+          background: 'var(--shade8)'
         }}
       >
         Servers are not currently available. Try again later
@@ -104,7 +104,7 @@ function CurseModpacksBrowser(props) {
     <div
       style={{
         height: 'calc(100vh - 60px)',
-        background: 'var(--secondary-color-1)'
+        background: 'var(--shade9)'
       }}
     >
       <div className={styles.header}>
@@ -180,7 +180,7 @@ function CurseModpacksBrowser(props) {
                   height={100}
                   speed={0.6}
                   ariaLabel={false}
-                  primaryColor="var(--secondary-color-2)"
+                  primaryColor="var(--shade8)"
                   secondaryColor="var(--secondary-color-3)"
                   style={{
                     height: '100px'

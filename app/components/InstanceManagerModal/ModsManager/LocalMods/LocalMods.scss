@@ -10,12 +10,12 @@
 }
 .listItemOdd {
   @include modItem;
-  background: var(--secondary-color-2);
+  background: var(--shade8);
 }
 
 .listItemEven {
   @include modItem;
-  background: var(--secondary-color-1);
+  background: var(--shade9);
 }
 
 .innerItemMod {

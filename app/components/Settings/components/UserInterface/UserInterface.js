@@ -91,16 +91,16 @@ const UserInterface = props => {
             Secondary Color{' '}
             <SketchPicker
               onChange={v => {
-                props.setThemeValue('secondary-color-1', shader(v.hex, 40));
-                props.setThemeValue('secondary-color-2', shader(v.hex, 20));
+                props.setThemeValue('shade9', shader(v.hex, 40));
+                props.setThemeValue('shade8', shader(v.hex, 20));
                 props.setThemeValue('secondary-color-3', v.hex);
               }}
               onChangeComplete={v => {
-                props.saveThemeValue('secondary-color-1', shader(v.hex, 40));
-                props.saveThemeValue('secondary-color-2', shader(v.hex, 20));
+                props.saveThemeValue('shade9', shader(v.hex, 40));
+                props.saveThemeValue('shade8', shader(v.hex, 20));
                 props.saveThemeValue('secondary-color-3', v.hex);
               }}
-              color={props.settings.theme['secondary-color-1']}
+              color={props.settings.theme['shade9']}
               presetColors={secondaryPresets}
               disableAlpha
             />

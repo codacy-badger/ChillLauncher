@@ -69,8 +69,8 @@ function Login(props) {
       <main
         className={styles.content}
         style={{
-          background: `linear-gradient( ${colors['secondary-color-2']}8A, ${
-            colors['secondary-color-2']
+          background: `linear-gradient( ${colors['shade8']}8A, ${
+            colors['shade8']
           }8A), url(${background})`
         }}
       >

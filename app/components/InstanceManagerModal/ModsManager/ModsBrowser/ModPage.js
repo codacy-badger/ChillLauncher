@@ -96,7 +96,7 @@ function ModPage(props) {
         marginTop: -40,
         padding: '10px 10px 10px 30px',
         position: 'absolute',
-        background: 'var(--secondary-color-1)',
+        background: 'var(--shade9)',
         overflow: 'auto'
       }}
     >
@@ -111,7 +111,7 @@ function ModPage(props) {
               width={width}
               speed={0.6}
               ariaLabel={false}
-              primaryColor="var(--secondary-color-2)"
+              primaryColor="var(--shade8)"
               secondaryColor="var(--secondary-color-3)"
               style={{
                 height: height - 60,

@@ -25,7 +25,7 @@ export const GAME_VERSIONS_URL =
 export const FORGE_PROMOS =
   'https://staging_cursemeta.dries007.net/api/v3/direct/minecraft/modloader';
 export const ACCESS_TOKEN_VALIDATION_URL =
-'https://authserver.mojang.com/validate';
+  'https://authserver.mojang.com/validate';
 
 // Mojang API Endpoints
 export const LOGIN_API = 'https://authserver.mojang.com/authenticate';
@@ -55,9 +55,19 @@ export const THEMES = {
   default: {
     name: 'Default',
     primary: '#2980b9',
-    'secondary-color-1': '#34495e',
-    'secondary-color-2': '#2c3e50',
-    'secondary-color-3': '#212b36'
+    accent: '#FF5859',
+    shade0: '#E5EBEF',
+    shade1: '#BBC9E0',
+    shade2: '#89A0B5',
+    shade3: '#7986A3',
+    shade4: '#5A7A92',
+    shade5: '#343F57',
+    shade6: '#273552',
+    shade7: '#202B43',
+    shade8: '#182338',
+    shade9: '#131C2E',
+    shade10: '#070E1D',
+    shadeUD: '#011218'
   },
   carrotUniverse: {
     name: 'Carrot Universe',

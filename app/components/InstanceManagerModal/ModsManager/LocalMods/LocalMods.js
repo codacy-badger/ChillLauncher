@@ -89,7 +89,7 @@ const LocalMods = props => {
         style={{
           height: 40,
           width: '100%',
-          background: 'var(--secondary-color-2)',
+          background: 'var(--shade8)',
           display: 'flex',
           alignItems: 'center'
         }}

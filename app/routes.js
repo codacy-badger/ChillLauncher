@@ -273,7 +273,7 @@ function WaitingComponent(MyComponent) {
           style={{
             width: '100vw',
             height: '100vh',
-            background: 'var(--secondary-color-1)'
+            background: 'var(--shade9)'
           }}
         >
           Loading...
