@@ -13,7 +13,7 @@
 .content {
   position: relative;
   height: calc(100vh - (47.6px + 180px));
-  background: var(--shade9);
+  background: var(--shade7);
   padding: 5px;
 }
 
@@ -21,7 +21,7 @@
   height: calc(100% - 47.6px - 20px);
   width: 100%;
   position: absolute;
-  background: var(--shade9);
+  background: var(--shade7);
 }
 
 .headerButtons {

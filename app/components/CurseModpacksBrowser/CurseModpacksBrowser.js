@@ -104,7 +104,7 @@ function CurseModpacksBrowser(props) {
     <div
       style={{
         height: 'calc(100vh - 60px)',
-        background: 'var(--shade9)'
+        background: 'var(--shade7)'
       }}
     >
       <div className={styles.header}>

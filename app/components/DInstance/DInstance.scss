@@ -6,7 +6,7 @@
   width: 130px;
   height: 130px;
   overflow: hidden;
-  color: $text-main-color;
+  color: var(--shade0);
 }
 
 .innerMain {
@@ -63,12 +63,12 @@
 
 .main:hover {
   transition: background-color 0.25s;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--shade9);
   border-radius: 2px;
 }
 
 .selectedItem {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--shade9);
   border-radius: 2px;
 }
 
@@ -97,7 +97,7 @@
 
 .warningIcon {
   @extend .icon__iconState;
-  color: #e74c3c;
+  color: var(--accent);
   font-size: 18px;
   cursor: pointer;
   svg {
@@ -118,7 +118,7 @@
   .progressBar {
     height: 100%;
     width: 80%;
-    background-color: var(--secondary-color-3);
+    background-color: var(--shade10);
   }
   .actualProgress {
     position: absolute;

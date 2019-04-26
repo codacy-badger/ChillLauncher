@@ -20,7 +20,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  background: var(--shade9);
+  background: var(--shade8);
   border-radius: 2px;
 }
 
@@ -34,7 +34,7 @@
   height: 30px;
   line-height: 30px;
   padding-left: 10px;
-  background: var(--shade8);
+  background: var(--shade9);
 }
 
 .closeBtn {
@@ -48,6 +48,6 @@
   cursor: pointer;
   transition: all 0.15s ease-in-out;
   &:hover {
-    color: rgba(231, 76, 60, 0.8);
+    color: var(--accent);
   }
 }
