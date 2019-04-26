@@ -8,7 +8,7 @@
 .accountInfo {
   display: grid;
   grid-template-columns: 100px auto;
-  background: var(--secondary-color-3);
+  background: var(--shadeUD);
   height: 120px;
   width: 100%;
   div:first-child {
@@ -17,7 +17,7 @@
   }
   div:nth-child(2) {
     display: block;
-    color: $text-dark;
+    color: var(--shade0);
     margin: 10px;
     *:not(i) {
       display: block;
@@ -27,7 +27,7 @@
     }
     .info {
       display: inline-block;
-      color: $text-main-color;
+      color: var(--shade2);
       -webkit-user-select: text;
       user-select: text;
       cursor: text;

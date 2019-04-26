@@ -84,10 +84,23 @@ export const THEMES = {
     'secondary-color-3': '#13171a'
   },
   bloodyMurder: {
-    name: 'Bloody Murder',
+    name: 'Bloody Mary',
     primary: '#aa1e0f',
-    'secondary-color-1': '#282c2f',
-    'secondary-color-2': '#14181b',
-    'secondary-color-3': '#000407'
+    accent: '#FF5859',
+    shade0: '#E5EBEF',
+    shade1: '#BBC9E0',
+    shade2: '#89A0B5',
+    shade3: '#7986A3',
+    shade4: '#5A7A92',
+    shade5: '#343F57',
+    shade6: '#13171a',
+    shade7: '#272b2e',
+    shade8: '#3b3f42',
+    shade9: '#272b2e',
+    shade10: '#13171a',
+    shadeUD: '#011218'
   }
 };
+ // 'secondary-color-1': '#282c2f',
+ //'secondary-color-2': '#14181b',
+ //'secondary-color-3': '#000407'
