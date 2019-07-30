@@ -162,7 +162,7 @@ export function addCursePackToQueue(pack, addonID, fileID, isRepair = false) {
       'temp',
       path.basename(packURL)
     );
-    await downloadFile(tempPackPath, packURL, () => {});
+    await downloadFile(tempPackPath, packURL, () => { });
     await compressing.zip.uncompress(
       tempPackPath,
       path.join(INSTANCES_PATH, 'temp', pack)
@@ -180,7 +180,6 @@ export function addCursePackToQueue(pack, addonID, fileID, isRepair = false) {
       ''
     );
 
-    console.log("DISPATCH")
     dispatch({
       type: ADD_TO_QUEUE,
       payload: pack,
@@ -226,8 +225,8 @@ export function downloadPack(pack, isRepair = false) {
       vnlJSON = JSON.parse(
         await promisify(fs.readFile)(
           path.join(
-            META_PATH,
-            'net.minecraft',
+            INSTANCES_PATH,
+            'versions',
             currPack.version,
             `${currPack.version}.json`
           )
@@ -238,11 +237,11 @@ export function downloadPack(pack, isRepair = false) {
         v => v.id === currPack.version
       ).url;
       vnlJSON = (await axios.get(versionURL)).data;
-      await makeDir(path.join(META_PATH, 'net.minecraft', currPack.version));
+      await makeDir(path.join(INSTANCES_PATH, 'versions', currPack.version));
       await promisify(fs.writeFile)(
         path.join(
-          META_PATH,
-          'net.minecraft',
+          INSTANCES_PATH,
+          'versions',
           currPack.version,
           `${currPack.version}.json`
         ),
@@ -270,10 +269,7 @@ export function downloadPack(pack, isRepair = false) {
         );
 
         await downloadFile(forgeBinPath, forgeJSON.downloadUrl, p => {
-          dispatch({
-            type: UPDATE_PROGRESS,
-            payload: { pack, percentage: ((p * 18) / 100).toFixed(0) }
-          });
+          dispatch(updateDownloadProgress(0, 15, p, 100));
         });
 
         await outputFile(
@@ -308,9 +304,9 @@ export function downloadPack(pack, isRepair = false) {
     const legacyJavaFixer =
       vCompare(currPack.forgeVersion, '10.13.1.1217') === -1
         ? {
-            url: GDL_LEGACYJAVAFIXER_MOD_URL,
-            path: path.join(PACKS_PATH, pack, 'mods', 'LJF.jar')
-          }
+          url: GDL_LEGACYJAVAFIXER_MOD_URL,
+          path: path.join(PACKS_PATH, pack, 'mods', 'LJF.jar')
+        }
         : null;
 
     // Here we work on the mods
@@ -375,16 +371,7 @@ export function downloadPack(pack, isRepair = false) {
             pack
           );
           modsManifest = modsManifest.concat(modManifest);
-          dispatch({
-            type: UPDATE_PROGRESS,
-            payload: {
-              pack,
-              percentage: (
-                (modsDownloaded * 12) / manifest.files.length +
-                18
-              ).toFixed(0)
-            }
-          });
+          dispatch(updateDownloadProgress(15, 15, modsDownloaded, manifest.files.length));
         },
         { concurrency: cpus().length + 2 }
       );
@@ -397,7 +384,7 @@ export function downloadPack(pack, isRepair = false) {
       await downloadFile(
         path.join(PACKS_PATH, pack, 'thumbnail.png'),
         thumbnailURL,
-        () => {}
+        () => { }
       );
 
       // Copy the thumbnail as icon
@@ -437,27 +424,29 @@ export function downloadPack(pack, isRepair = false) {
       }
     });
 
+
     // Check if needs 1.13 forge patching
     const installProfileJson =
       forgeJSON && JSON.parse(forgeJSON.installProfileJson);
 
     let totalPercentage = 100;
+    let minPercentage = 0;
 
-    if (currPack.forgeVersion) totalPercentage = 70;
-    if (installProfileJson) totalPercentage = 58;
+    if (currPack.forgeVersion) {
+      if (modsManifest.length) {
+        minPercentage = 30;
+        totalPercentage = 60;
+      } else {
+        minPercentage = 15;
+        totalPercentage = 85;
+      }
 
+      if (installProfileJson) {
+        totalPercentage = totalPercentage - 10;
+      }
+    }
     const updatePercentage = downloaded => {
-      const actPercentage = (
-        (downloaded * totalPercentage) / totalFiles +
-        (100 - totalPercentage)
-      ).toFixed(0);
-      return dispatch({
-        type: UPDATE_PROGRESS,
-        payload: {
-          pack,
-          percentage: actPercentage
-        }
-      });
+      dispatch(updateDownloadProgress(minPercentage, totalPercentage, downloaded, totalFiles));
     };
 
     const allFiles =
@@ -465,7 +454,7 @@ export function downloadPack(pack, isRepair = false) {
         ? [...libraries, ...assets, ...mainJar, legacyJavaFixer]
         : [...libraries, ...assets, ...mainJar];
 
-    await downloadArr(allFiles, updatePercentage, pack);
+    await downloadArr(allFiles, updatePercentage, pack, isRepair);
 
     if (vnlJSON.assets === 'legacy') {
       await copyAssetsToLegacy(assets);
@@ -533,16 +522,8 @@ export function downloadPack(pack, isRepair = false) {
           { maxBuffer: 10000000000 }
         );
 
-        console.log(stderr, stdout);
-        const actPercentage = ((i * 12) / processors.length).toFixed(0);
-        console.log(actPercentage);
-        dispatch({
-          type: UPDATE_PROGRESS,
-          payload: {
-            pack,
-            percentage: 88 + Number(actPercentage)
-          }
-        });
+        log.error(stderr);
+        dispatch(updateDownloadProgress(90, 10, i, processors.length));
       }
     }
     dispatch({
@@ -580,4 +561,26 @@ function addNextPackToActualDownload() {
       return false;
     });
   };
+}
+
+// Download progress selectors
+
+// Phase 1 = Get forge
+// Phase 2 = Get mods
+// Phase 3 = Download all files
+// Phase 4 = Apply patches
+
+function updateDownloadProgress(min, percDifference, computed, total) {
+  return (dispatch, getState) => {
+    const { downloadManager: { downloadQueue } } = getState();
+    const actualDownload = Object.keys(downloadQueue).find(v => downloadQueue[v].status === "Downloading");
+    const actualPercentage = (computed * percDifference) / total;
+    dispatch({
+      type: UPDATE_PROGRESS,
+      payload: {
+        pack: downloadQueue[actualDownload].name,
+        percentage: Number(actualPercentage.toFixed()) + Number(min)
+      }
+    });
+  }
 }

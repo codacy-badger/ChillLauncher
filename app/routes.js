@@ -8,6 +8,8 @@ import { screen } from 'electron';
 import { release, arch } from 'os';
 import * as AuthActions from './actions/auth';
 import * as SettingsActions from './actions/settings';
+import * as InstancesActions from './actions/instancesManager';
+import * as NewsActions from './actions/news';
 import { JAVA_URL } from './constants';
 import ga from './GAnalytics';
 import App from './containers/App';
@@ -70,8 +72,10 @@ class RouteDef extends Component<Props> {
   }
 
   componentDidMount = async () => {
-    const { loadSettings, checkAccessToken } = this.props;
+    const { loadSettings, checkAccessToken, initInstances, getNews } = this.props;
     loadSettings();
+    getNews();
+    initInstances();
     if (!this.props.isAuthValid) checkAccessToken();
     if ((await findJavaHome()) === null) {
       notification.warning({
@@ -111,12 +115,12 @@ class RouteDef extends Component<Props> {
       ga(this.props.uuid).set('ds', 'app');
       ga(this.props.uuid).set('ua', `${release()} ${arch()}`);
       ga(this.props.uuid).set('cd1', `${release()} ${arch()}`);
-      ga(this.props.uuid).set(
-        'sr',
-        `${screen.getPrimaryDisplay().bounds.width}x${
-          screen.getPrimaryDisplay().bounds.height
-        }`
-      );
+      // ga(this.props.uuid).set(
+      //   'sr',
+      //   `${screen.getPrimaryDisplay().bounds.width}x${
+      //     screen.getPrimaryDisplay().bounds.height
+      //   }`
+      // );
       ga(this.props.uuid).set(
         'vp',
         `${window.innerWidth}x${window.innerHeight}`
@@ -294,7 +298,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...AuthActions, ...SettingsActions }, dispatch);
+  return bindActionCreators({ ...AuthActions, ...SettingsActions, ...InstancesActions, ...NewsActions }, dispatch);
 }
 
 export default connect(
