@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
+import { ThemeProvider } from '@material-ui/styles';
 import log from 'electron-log';
 import { ConnectedRouter } from 'connected-react-router';
+import theme from '../style/theme/theme';
 import * as SettingsActions from '../actions/settings';
 import CrashHandler from '../components/CrashHandler/CrashHandler';
 import RouteDef from '../routes';
@@ -43,11 +45,13 @@ class Root extends Component<Props> {
 
     return (
       <Provider store={store}>
-        <div>
-          <ConnectedRouter history={history}>
-            <RouteDef history={history} />
-          </ConnectedRouter>
-        </div>
+        <ThemeProvider theme={theme}>
+          <div>
+            <ConnectedRouter history={history}>
+              <RouteDef history={history} />
+            </ConnectedRouter>
+          </div>
+        </ThemeProvider>
       </Provider>
     );
   }

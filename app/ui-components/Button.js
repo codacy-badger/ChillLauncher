@@ -1,13 +1,34 @@
 import React from 'react';
-import { makeStyles, styled } from '@material-ui/styles';
+import { makeStyles, styled, withStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const GDButton = styled(Button)({
-  border: 0,
-  borderRadius: 2,
-  fontFamily: 'inherit'
-});
+const ColorCircularProgress = withStyles({
+  root: {
+    color: 'white',
+  },
+})(CircularProgress);
 
-export default function StyledComponents(props) {
-  return <GDButton variant="contained" color="primary" {...props} />;
+const useStyles = makeStyles(theme => ({
+  progress: {
+    marginRight: theme.spacing(2),
+    position: 'relative',
+    top: 2
+  },
+  button: {
+    margin: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center'
+  },
+}));
+
+export default function StyledComponents({ children, ...props }) {
+  const classes = useStyles();
+
+    return (
+      <Button className={classes.button} variant="contained" color="primary" {...props}>
+        {props.loading && <ColorCircularProgress className={classes.progress} size={15} />}
+        {children}
+      </Button>
+    );
 }

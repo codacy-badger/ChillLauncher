@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import { Input, Button } from 'antd';
+import { Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';
+import Button from 'ui/Button';
 import { PACKS_PATH, THEMES } from '../../constants';
 import styles from './Home.scss';
 import News from './components/News/News';
@@ -109,7 +110,7 @@ export default class Home extends Component<Props> {
                 title="Try out the new v1.13.2"
               >
                 V1.13.2 has just been released. Wanna try it out?
-                {this.state.latestBtnClicked || this.state.latestInstalled ? (
+                {this.state.latestInstalled ? (
                   <Link
                     to="/dmanager"
                     style={{ display: 'block', margin: '35px auto' }}
@@ -118,11 +119,10 @@ export default class Home extends Component<Props> {
                   </Link>
                 ) : (
                   <Button
-                    type="primary"
-                    loading={this.props.packCreationLoading}
+                    loading={this.state.latestBtnClicked}
                     style={{ display: 'block', margin: '35px auto' }}
                     onClick={() => {
-                      this.props.createPack('1.13.2', '1.13.2');
+                      // this.props.createPack('1.13.2', '1.13.2');
                       this.setState({ latestBtnClicked: true });
                     }}
                   >

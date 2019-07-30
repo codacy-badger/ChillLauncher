@@ -9,7 +9,7 @@ const prodPlugins = [
 
   // Formerly babel-preset-react-optimize
   require('@babel/plugin-transform-react-constant-elements'),
-  require('@babel/plugin-transform-react-inline-elements')
+  require('@babel/plugin-transform-react-inline-elements'),
   // require('babel-plugin-transform-react-remove-prop-types'), // POSSIBLY UNSTABLE
   // require('babel-plugin-transform-react-pure-class-to-function') // POSSIBLY UNSTABLE
 ];
@@ -34,6 +34,8 @@ module.exports = api => {
     ],
     plugins: [
       ...(isDevEnv ? devPlugins : prodPlugins),
+
+      require('babel-plugin-styled-components'),
 
       // Stage 0
       require('@babel/plugin-proposal-function-bind'),

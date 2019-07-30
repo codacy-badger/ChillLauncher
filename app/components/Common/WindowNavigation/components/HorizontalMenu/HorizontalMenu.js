@@ -1,59 +1,47 @@
-// @flow
-import React, { useState, useEffect } from 'react';
-import { Menu, Icon, Button } from 'antd';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from 'ui/AppBar';
+import Tabs from 'ui/Tabs';
+import Tab from 'ui/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faPlay, faThList } from '@fortawesome/free-solid-svg-icons';
-import Badge from '../../../Badge/Badge';
-import styles from './HorizontalMenu.scss';
-import logo from '../../../../../assets/images/logo.png';
+import { history } from '../../../../../store/configureStore';
 
-export default props => {
-  const isLocation = loc => {
-    if (loc === props.location) {
-      return true;
-    }
-    return false;
-  };
+function LinkTab(props) {
+  return (
+    <Tab
+      onClick={event => {
+        event.preventDefault();
+        history.push(props.href);
+      }}
+      {...props}
+    />
+  );
+}
+
+export default function NavTabs(props) {
+  const [value, setValue] = React.useState(0);
+
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
+
 
   return (
-    <div className={styles.main}>
-      <ul className={styles.ul}>
-        <li
-          className={`${styles.li} ${
-            isLocation('/home') ? styles.activeLink : null
-          }`}
+    <div>
+      <AppBar position="relative">
+        <Tabs
+          variant="standard"
+          value={value}
+          onChange={handleChange}
         >
-          <Link to="/home" draggable="false" className={styles.a}>
-            <FontAwesomeIcon icon={faHome} className={styles.i} />
-            HOME
-          </Link>
-        </li>
-        <li
-          className={`${styles.li} ${
-            isLocation('/dmanager') ? styles.activeLink : null
-          }`}
-        >
-          <Link to="/dmanager" draggable="false" className={styles.a}>
-            <FontAwesomeIcon icon={faPlay} className={styles.i} />
-            INSTANCES
-          </Link>
-        </li>
-        <li
-          className={`${styles.li} ${
-            isLocation('/curseModpacksBrowser') ? styles.activeLink : null
-          }`}
-        >
-          <Link
-            to="/curseModpacksBrowser"
-            draggable="false"
-            className={styles.a}
-          >
-            <FontAwesomeIcon icon={faThList} className={styles.i} />
-            MODPACKS
-          </Link>
-        </li>
-      </ul>
+          <LinkTab label="Home" href="/home" />
+          <LinkTab label="Instances" href="/dmanager" />
+          <LinkTab label="Modpacks" href="/curseModpacksBrowser" />
+        </Tabs>
+      </AppBar>
     </div>
   );
-};
+}
