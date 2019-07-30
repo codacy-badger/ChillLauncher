@@ -45,7 +45,7 @@ a {
   -webkit-user-drag: none;
 }
 
-a:hover {
+a:hover, a:focus {
   text-decoration: none;
 }
 

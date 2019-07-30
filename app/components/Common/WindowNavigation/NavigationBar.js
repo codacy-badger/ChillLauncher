@@ -8,9 +8,11 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import styles from './NavigationBar.scss';
 import HorizontalMenu from './components/HorizontalMenu/HorizontalMenu';
 import logo from '../../../assets/images/logo.png';
+import { useTheme } from '@material-ui/core';
 
 export default props => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -23,15 +25,18 @@ export default props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logoText}>
-        <img src={logo} height="40px" alt="logo" draggable="false" />
+      <div css={`display: flex;`}>
+        <div className={styles.logoText}>
+          <img src={logo} height="40px" alt="logo" draggable="false" />
+        </div>
+        <HorizontalMenu location={props.location} />
       </div>
-      <HorizontalMenu location={props.location} />
       <Link
         to={{
           pathname: '/settings/myAccount_Preferences',
           state: { modal: true }
         }}
+        css={`margin-right: ${theme.spacing(3)}px;`}
       >
         <FontAwesomeIcon icon={faCog} className={styles.settings} />
       </Link>
