@@ -85,7 +85,7 @@ export const THEMES = {
     'secondary-color-3': '#13171a'
   },
   bloodyMurder: {
-    name: 'Bloody Mary',
+    name: 'Bloody Murder',
     primary: '#aa1e0f',
     accent: '#FF5859',
     shade0: '#E5EBEF',

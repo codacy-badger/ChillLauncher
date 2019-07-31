@@ -11,17 +11,7 @@ import logo from '../../../assets/images/logo.png';
 import { useTheme } from '@material-ui/core';
 
 export default props => {
-  const [updateAvailable, setUpdateAvailable] = useState(false);
   const theme = useTheme();
-
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'development') {
-      ipcRenderer.send('check-for-updates');
-      ipcRenderer.on('update-available', () => {
-        setUpdateAvailable(true);
-      });
-    }
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -40,15 +30,6 @@ export default props => {
       >
         <FontAwesomeIcon icon={faCog} className={styles.settings} />
       </Link>
-      {updateAvailable && (
-        <div className={styles.updateAvailable}>
-          <Link to="/autoUpdate">
-            <Button type="primary" size="small" style={{ marginLeft: 5 }}>
-              Update Available
-            </Button>
-          </Link>
-        </div>
-      )}
     </div>
   );
 };

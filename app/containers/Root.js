@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import theme from '../style/theme/theme';
 import * as SettingsActions from '../actions/settings';
 import CrashHandler from '../components/CrashHandler/CrashHandler';
+import GlobalStyles from '../global-styles';
 import RouteDef from '../routes';
 
 type Props = {
@@ -48,6 +49,7 @@ class Root extends Component<Props> {
         <ThemeProvider theme={theme}>
           <div>
             <ConnectedRouter history={history}>
+              <GlobalStyles />
               <RouteDef history={history} />
             </ConnectedRouter>
           </div>

@@ -153,7 +153,8 @@ if (minimist(process.argv.slice(1)).i) {
       rpc.login({ clientId }).catch(log.error);
 
       autoUpdater.logger = log;
-      autoUpdater.autoDownload = false;
+      autoUpdater.autoDownload = true;
+      autoUpdater.autoInstallOnAppQuit = true;
 
       const channel =
         store.get('settings') &&

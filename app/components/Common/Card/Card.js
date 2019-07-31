@@ -3,7 +3,6 @@ import { useTheme } from '@material-ui/styles';
 
 const Card = props => {
   const theme = useTheme();
-  console.log(theme)
   return (
     <div style={props.style} css={`
     display: block;

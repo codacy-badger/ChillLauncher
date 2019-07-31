@@ -6,13 +6,13 @@
   background-position: center left;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 180px;
+  height: 80px;
   width: 100%;
 }
 
 .content {
   position: relative;
-  height: calc(100vh - (47.6px + 180px));
+  height: calc(100vh - (47.6px));
   background: var(--shade7);
   padding: 5px;
 }
@@ -24,15 +24,6 @@
   background: var(--shade7);
 }
 
-.headerButtons {
-  width: 44vw;
-  text-align: center;
-  position: relative;
-  top: 40px;
-  a:hover {
-    text-decoration: none; 
-  }
-}
 
 .browseModpacks {
   display: block;

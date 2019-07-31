@@ -24,16 +24,28 @@ function LinkTab(props) {
 export default function NavTabs(props) {
   const [value, setValue] = React.useState(0);
 
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
+  React.useEffect(() => {
+    switch (props.location) {
+      case '/home':
+        setValue(0);
+        break;
+      case '/dmanager':
+        setValue(1);
+        break;
+      case '/curseModpacksBrowser':
+        setValue(2);
+        break;
+      default:
+        break;
+    }
+  }, [props.location])
+
 
 
   return (
     <Tabs
       variant="standard"
       value={value}
-      onChange={handleChange}
       indicatorColor="primary"
     >
       <LinkTab label="Home" href="/home" />

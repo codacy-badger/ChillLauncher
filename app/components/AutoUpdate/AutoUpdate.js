@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Progress } from 'antd';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { ipcRenderer } from 'electron';
 import { THEMES } from '../../constants';
 import store from '../../localStore';
@@ -37,7 +37,7 @@ export default props => {
         <h1>GDLauncher Autoupdater</h1>
         We are currently updating the launcher, depending on your connection it
         may take a while. Go grab a cup of coffee while we finish this for you
-        <Progress style={{ marginTop: 70 }} percent={percentage} />
+        <LinearProgress css={`margin-top: 70px`} variant="determinate" value={percentage} />
       </div>
     </div>
   );
