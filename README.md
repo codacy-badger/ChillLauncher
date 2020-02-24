@@ -148,7 +148,7 @@ See also the list of [contributors](https://github.com/gorilla-devs/GDLauncher/c
 
 ## 🎓 License
 
-This project is licensed under the GNU GPL V3.0 - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## ✏️ Todos
 
