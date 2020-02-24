@@ -80,5 +80,19 @@ export const THEMES = {
     'secondary-color-1': '#282c2f',
     'secondary-color-2': '#14181b',
     'secondary-color-3': '#000407'
+  },
+  lavenderDreams: {
+    name: 'Lavender Dreams',
+    primary: '#00A4FF',
+    'secondary-color-1': '#BDB9FF',
+    'secondary-color-2': '#8280b4',
+    'secondary-color-3': '#5b57b1'
+  },
+  blueChill: {
+    name: 'Blue Chill',
+    primary: '#1ad5ff',
+    'secondary-color-1': '#2c55b2'
+    'secondary-color-2': '#547dda'
+    'secondary-color-3': '#6891ee'
   }
 };
